@@ -3,7 +3,8 @@ init:
  - set PATH=%PATH%;%QTDIR%\bin;C:\Qt\Tools\mingw530_32\bin
  
 build_script:
-  - qmake computer\soccerBotSoftware.pro
+  - cd computer
+  - qmake soccerBotSoftware.pro
   - mingw32-make
   
 artifacts:
