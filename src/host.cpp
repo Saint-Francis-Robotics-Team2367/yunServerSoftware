@@ -179,9 +179,13 @@ void Host::sendRobotSync()
                         QTextStream stream(&dgram);
                         quint8 leftY = SINT_2_UINT(this->masterList->at(playerNum)->getJoystickData().lY);
                         quint8 rightX = SINT_2_UINT(this->masterList->at(playerNum)->getJoystickData().rX);
+                        quint8 leftTrig = SINT_2_UINT(this->masterList->at(playerNum)->getJoystickData().lT);
+                        quint8 rightTrig = SINT_2_UINT(this->masterList->at(playerNum)->getJoystickData().rT);
                         stream << "!ROB#"
                                << leftY << ":"
-                               << rightX << "?";
+                               << rightX << ":"
+                               << leftTrig << ":"
+                               << rightTrig << "?";
                         D_MSG(dgram.toUtf8());
                         this->commSock->writeDatagram(dgram.toUtf8(),robots->at(x).addr,robots->at(x).port);
                     }
