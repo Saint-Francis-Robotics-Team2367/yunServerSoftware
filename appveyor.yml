@@ -10,13 +10,17 @@ build_script:
 artifacts:
   - path: computer\release\deploy
     name: windows
+  - path: robot\yun
+    name: yun
+  - path: robot\pi
+    name: pi  
   
 after_build:
     - cd release
     - mkdir deploy
-    - copy LED-Controller.exe deploy
+    - copy soccerBotSoftware.exe deploy
     - cd deploy
-    - windeployqt LED-Controller.exe
+    - windeployqt soccerBotSoftware.exe
     
 deploy:
   release: LEDController-$(APPVEYOR_REPO_TAG_NAME)
@@ -24,7 +28,7 @@ deploy:
   provider: GitHub
   auth_token:
     secure: VtuiEw6NXRRYgPkzk+EHYxBu4T5I+7hATgUnMYvA5zR0CnywuDF/gUp0sfxXv+Vx # your encrypted token from GitHub
-  artifact: windows, arduino
+  artifact: windows, yun, pi
   draft: true
   prerelease: true
   on:
