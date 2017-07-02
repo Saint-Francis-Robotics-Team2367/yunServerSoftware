@@ -12,7 +12,7 @@ artifacts:
     name: windows
   
 after_build:
-    - cd computer\release
+    - cd release
     - mkdir deploy
     - copy LED-Controller.exe deploy
     - cd deploy
