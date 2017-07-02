@@ -1,0 +1,31 @@
+init:
+ - set QTDIR=C:\Qt\5.7\mingw53_32
+ - set PATH=%PATH%;%QTDIR%\bin;C:\Qt\Tools\mingw530_32\bin
+ 
+build_script:
+  - qmake computer\soccerBotSoftware.pro
+  - mingw32-make
+  
+artifacts:
+  - path: computer\release\deploy
+    name: windows
+  
+after_build:
+    - cd computer\release
+    - mkdir deploy
+    - copy LED-Controller.exe deploy
+    - cd deploy
+    - windeployqt LED-Controller.exe
+    
+deploy:
+  release: LEDController-$(APPVEYOR_REPO_TAG_NAME)
+  description: 'Auto-generated release'
+  provider: GitHub
+  auth_token:
+    secure: VtuiEw6NXRRYgPkzk+EHYxBu4T5I+7hATgUnMYvA5zR0CnywuDF/gUp0sfxXv+Vx # your encrypted token from GitHub
+  artifact: windows, arduino
+  draft: true
+  prerelease: true
+  on:
+    branch: master                 # release from master branch only
+    appveyor_repo_tag: true        # deploy on tag push only
